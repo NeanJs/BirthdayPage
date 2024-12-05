@@ -5,7 +5,7 @@ import Aos from "aos";
 import "aos/dist/aos.css";
 export default function Home() {
   const [countdown, setCountdown] = useState<number>(10);
-
+  const [isAudioPlaying, setIsAudioPlaying] = useState<boolean>(false);
   useEffect(() => {
     Aos.init({
       easing: "linear",
@@ -17,6 +17,10 @@ export default function Home() {
 
     return () => clearInterval(timer);
   }, []);
+  const handleAudioPlay = () => {
+    setIsAudioPlaying(true);
+    window.ConfettiPage.play();
+  };
 
   return (
     <div className="h-screen bg-gradient-to-r from-pink-400 via-purple-500 to-indigo-600 text-white flex flex-col items-center justify-center">
@@ -54,12 +58,12 @@ export default function Home() {
       )}
 
       <button
-        onClick={() => window.ConfettiPage.play()}
+        onClick={handleAudioPlay}
         className="mt-6 bg-yellow-400 text-black py-2 px-4 rounded-xl hover:bg-yellow-500 transition duration-300"
       >
         Celebrate
       </button>
-      <audio autoPlay loop>
+      <audio autoPlay>
         <source src="/music.mp3" type="audio/mp3" />
       </audio>
     </div>
